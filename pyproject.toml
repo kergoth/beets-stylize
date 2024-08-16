@@ -12,6 +12,11 @@ classifiers = [
     'Development Status :: 4 - Beta',
     'Environment :: Plugins',
     'Topic :: Multimedia :: Sound/Audio',
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
 ]
 packages = [
     { include = "beetsplug", from = "src" }
@@ -21,7 +26,7 @@ packages = [
 Changelog = "https://github.com/kergoth/beets-stylize/releases"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<3.11"
 click = ">=8.0.1"
 beets = "^2.0.0"
 
