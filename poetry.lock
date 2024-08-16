@@ -1209,10 +1209,7 @@ files = [
 [package.dependencies]
 annotated-types = ">=0.4.0"
 pydantic-core = "2.20.1"
-typing-extensions = [
-    {version = ">=4.12.2", markers = "python_version >= \"3.13\""},
-    {version = ">=4.6.1", markers = "python_version < \"3.13\""},
-]
+typing-extensions = {version = ">=4.6.1", markers = "python_version < \"3.13\""}
 
 [package.extras]
 email = ["email-validator (>=2.0.0)"]
@@ -2049,5 +2046,5 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.8"
-content-hash = "ad92663f039659c870b6b4f06f7e505fd609436a4051958a6bb47c4578c112dd"
+python-versions = ">=3.8,<3.11"
+content-hash = "1cb78ee0241a36d178c3368d70eb432586cd20b57b9c4885eda90a70774c19d7"
