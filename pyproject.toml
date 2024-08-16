@@ -49,9 +49,6 @@ typeguard = ">=2.13.3"
 xdoctest = { extras = ["colors"], version = ">=0.15.10" }
 cram = "^0.7"
 
-[tool.poetry.scripts]
-beets-stylize = "beetsplug.stylize.__main__:main"
-
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
 tests = ["tests", "*/tests"]
