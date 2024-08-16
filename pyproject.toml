@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "beets-stylize"
-version = "0.1.1a0"
+version = "v0.9.0"
 description = "Stylize Plugin for Beets"
 authors = ["Christopher Larson <kergoth@gmail.com>"]
 license = "MIT"
