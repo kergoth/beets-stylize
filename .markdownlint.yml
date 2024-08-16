@@ -1,0 +1,4 @@
+# Disable line length check
+MD013: false
+# Disable first line check, as we use file inclusion
+MD041: false
