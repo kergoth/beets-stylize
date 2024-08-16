@@ -453,17 +453,6 @@ tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.1
 toml = ["tomli"]
 
 [[package]]
-name = "cram"
-version = "0.7"
-description = "A simple testing framework for command line applications"
-optional = false
-python-versions = "*"
-files = [
-    {file = "cram-0.7-py2.py3-none-any.whl", hash = "sha256:008e4e8b4d325cf040964b5f62460535b004a7bc816d54f8527a4d299edfe4a3"},
-    {file = "cram-0.7.tar.gz", hash = "sha256:7da7445af2ce15b90aad5ec4792f857cef5786d71f14377e9eb994d8b8337f2f"},
-]
-
-[[package]]
 name = "cryptography"
 version = "43.0.0"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -2047,4 +2036,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.11"
-content-hash = "1cb78ee0241a36d178c3368d70eb432586cd20b57b9c4885eda90a70774c19d7"
+content-hash = "9b8233074fcdee7cded18814ba46c88b7f424d61287ad7144e4d452bb622b1c5"
