@@ -9,7 +9,7 @@ homepage = "https://github.com/kergoth/beets-stylize"
 repository = "https://github.com/kergoth/beets-stylize"
 documentation = "https://beets-stylize.readthedocs.io"
 classifiers = [
-    'Development Status :: 4 - Beta',
+    'Development Status :: 5 - Production/Stable',
     'Environment :: Plugins',
     'Topic :: Multimedia :: Sound/Audio',
     "Programming Language :: Python",
