@@ -20,7 +20,7 @@
 [ruff badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
 [ruff project]: https://github.com/charliermarsh/ruff
 
-The `stylize` plugin adds three [template functions][] for use in [beets][] track and album listings. It is intended for use with the [format_item][] and [format_album][] configuration options. Using these functions will allow you to add style and color to the [list][] command and other commands that need to print out items.
+The [stylize](https://github.com/kergoth/beets-stylize) plugin adds three [template functions][] for use in [beets][] track and album listings. It is intended for use with the [format_item][] and [format_album][] configuration options. Using these functions will allow you to add style and color to the [list][] command and other commands that need to print out items.
 
 - `stylize`: Add color and formatting to your formatted items and albums.
 - `nocolor`: Show the supplied text only when color is disabled. This is useful to add separators between fields when color is unavailable.
@@ -31,7 +31,7 @@ The `stylize` plugin adds three [template functions][] for use in [beets][] trac
 As the beets documentation describes in [Other plugins][], to use an external plugin like this one, there are two options for installation:
 
 - Make sure it’s in the Python path (known as `sys.path` to developers). This just means the plugin has to be installed on your system (e.g., with a setup.py script or a command like pip or easy_install). For example, `pip install beets-stylize`.
-- Set the pluginpath config variable to point to the directory containing the plugin. (See Configuring) This would require cloning or otherwise downloading this repository before adding to the pluginpath.
+- Set the pluginpath config variable to point to the directory containing the plugin. (See Configuring) This would require cloning or otherwise downloading this [repository](https://github.com/kergoth/beets-stylize) before adding to the pluginpath.
 
 ## Configuring
 
