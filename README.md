@@ -102,6 +102,7 @@ please [file an issue] along with a detailed description.
 
 ## Credits
 
+This project is a plugin for the [beets][] project, and would not exist without that fantastic project.
 This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter] template.
 
 [template functions]: https://beets.readthedocs.io/en/stable/reference/pathformat.html#template-functions
