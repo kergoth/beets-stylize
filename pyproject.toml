@@ -74,6 +74,7 @@ warn_unreachable = true
 pretty = true
 show_column_numbers = true
 show_error_context = true
+exclude = ["^noxfile\\.py$"]
 
 [tool.ruff]
 src = ["src", "tests"]
