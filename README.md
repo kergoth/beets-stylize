@@ -20,7 +20,9 @@
 [ruff badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
 [ruff project]: https://github.com/charliermarsh/ruff
 
-The [stylize](https://github.com/kergoth/beets-stylize) plugin adds three [template functions][] for use in [beets][] track and album listings. It is intended for use with the [format_item][] and [format_album][] configuration options. Using these functions will allow you to add style and color to the [list][] command and other commands that need to print out items.
+![Album Listing][]
+
+The [stylize](https://github.com/kergoth/beets-stylize) plugin adds style and color to the [list][] command and other commands that need to print out items, by adding three [template functions][] for use with the [format_item][] and [format_album][] configuration options.
 
 - `stylize`: Add color and formatting to your formatted items and albums.
 - `nocolor`: Show the supplied text only when color is disabled. This is useful to add separators between fields when color is unavailable.
