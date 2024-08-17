@@ -1,0 +1,4 @@
+#!/bin/sh
+
+scriptdir=$(cd "$(dirname "$0")" && pwd)
+sed -e 's#./docs/images/#https://raw.githubusercontent.com/kergoth/beets-stylize/main/docs/images/#' "$scriptdir/../README.md" >"$scriptdir/../.github/README.remotified.md"

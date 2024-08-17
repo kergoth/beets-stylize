@@ -59,6 +59,7 @@ jobs:
 
       - name: Build package
         run: |
+          ./beets-stylize/scripts/remotify
           poetry build --ansi
 
       - name: Publish package on PyPI
