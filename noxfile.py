@@ -25,6 +25,7 @@ except ImportError:
 
 package = "beetsplug.stylize"
 python_versions = ["3.10", "3.9", "3.8"]
+beets_versions = ["2.0"]
 nox.needs_version = ">= 2021.6.6"
 nox.options.sessions = (
     "pre-commit",
@@ -151,9 +152,12 @@ def mypy(session: Session) -> None:
 
 
 @session(python=python_versions)
-def tests(session: Session) -> None:
+@nox.parametrize("beets", beets_versions)
+def tests(session: Session, beets: str) -> None:
     """Run the test suite."""
     session.install(".")
+    if beets != beets_versions[-1]:
+        session.run("pip", "install", f"beets=={beets}")
     session.install("coverage[toml]", "pytest", "pygments")
     try:
         session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
