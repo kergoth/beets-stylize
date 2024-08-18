@@ -7,7 +7,7 @@
   "friendly_name": "Stylize Plugin for Beets",
   "github_user": "kergoth",
   "license": "MIT",
-  "package_name": "beetsplugin.stylize",
+  "package_name": "beetsplug.stylize",
   "project_name": "beets-stylize",
   "version": "0.1.0"
 }

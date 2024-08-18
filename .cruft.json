@@ -5,7 +5,7 @@
   "context": {
     "cookiecutter": {
       "project_name": "beets-stylize",
-      "package_name": "beetsplugin.stylize",
+      "package_name": "beetsplug.stylize",
       "friendly_name": "Stylize Plugin for Beets",
       "author": "Christopher Larson",
       "email": "kergoth@gmail.com",
