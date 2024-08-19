@@ -1,4 +1,7 @@
 #!/bin/sh
+# Convert local image paths in the README to remote URLs for use in the PyPI description.
+# https://github.com/realazthat/mdremotifier is a superior option, but doesn't seem to work
+# with reference links, so we do it manually.
 
 scriptdir=$(cd "$(dirname "$0")" && pwd)
 sed -e 's#./docs/images/#https://raw.githubusercontent.com/kergoth/beets-stylize/main/docs/images/#' "$scriptdir/../README.md" >"$scriptdir/../.github/README.remotified.md"
