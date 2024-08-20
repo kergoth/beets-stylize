@@ -24,8 +24,8 @@ from beets.ui import _colorize
 class StylizePlugin(BeetsPlugin):  # type: ignore
     """Beets plugin to add style to your music library."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, name="stylize") -> None:
+        super().__init__(name=name)
         self.enabled = self.is_enabled()
         self.template_funcs["stylize"] = self.stylize
         self.template_funcs["nocolor"] = self.nocolor
