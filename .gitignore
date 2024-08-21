@@ -1,6 +1,6 @@
-.mypy_cache/
-.pytest_cache/
-.ruff_cache/
+/.mypy_cache/
+/.pytest_cache/
+/.ruff_cache/
 /.coverage
 /.coverage.*
 /.nox/
@@ -9,4 +9,5 @@
 /dist/
 /docs/_build/
 /src/*.egg-info/
+/.venv/
 __pycache__/
