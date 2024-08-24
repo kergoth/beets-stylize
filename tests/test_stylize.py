@@ -4,7 +4,6 @@ import unittest
 
 from beets import config  # type: ignore
 from beets.test.helper import TestHelper  # type: ignore
-from beets.ui import UserError  # type: ignore
 
 from beetsplug import stylize
 
@@ -66,9 +65,7 @@ class StylizePluginTest(BeetsTestCase):
 
     def test_undefined_color(self) -> None:
         """Test stylize function with undefined color."""
-        with self.assertRaises(UserError) as cm:
-            self.plugin.stylize("color1", "foo")
-            self.assertEqual(str(cm.exception), "no such color color1")
+        self.assertEqual(self.plugin.stylize("color1", "foo"), "foo")
 
     def test_invalid_color_codes(self) -> None:
         """Test stylize function with invalid color codes."""

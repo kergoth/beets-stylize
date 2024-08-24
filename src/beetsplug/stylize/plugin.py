@@ -17,7 +17,6 @@ import confuse  # type: ignore
 from beets import config  # type: ignore
 from beets.plugins import BeetsPlugin  # type: ignore
 from beets.ui import ANSI_CODES  # type: ignore
-from beets.ui import UserError
 from beets.ui import _colorize
 
 
@@ -45,7 +44,11 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         """Colorize text with a configured color (ui.colors)."""
         if text:
             if self.enabled:
-                return _colorize(self.color_codes(color_name), text)  # type: ignore
+                code = self.color_codes(color_name)
+                if code is None:
+                    return text
+                else:
+                    return _colorize(code, text)  # type: ignore
             else:
                 if alternative is None:
                     return text
@@ -75,7 +78,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
 
     @staticmethod
     @lru_cache
-    def color_codes(color_name: str) -> List[str]:
+    def color_codes(color_name: str) -> Optional[List[str]]:
         """Get configured color codes for a color name."""
         try:
             color_code: str = config["ui"]["colors"][color_name].get(str)
@@ -83,8 +86,8 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             # Normal color definition (type: list of unicode).
             try:
                 color_codes: List[str] = config["ui"]["colors"][color_name].get(list)
-            except (confuse.ConfigTypeError, confuse.NotFoundError, NameError) as exc:
-                raise UserError("no such color %s", color_name) from exc
+            except (confuse.ConfigTypeError, confuse.NotFoundError, NameError):
+                return None
         else:
             color_codes = color_code.split()
 
