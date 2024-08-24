@@ -16,7 +16,6 @@
 
 [pypi status]: https://pypi.org/project/beets-stylize/
 [ethical source]: https://ethicalsource.dev/principles/
-[contributor covenant]: CODE_OF_CONDUCT.md
 [read the docs]: https://beets-stylize.readthedocs.io/
 [tests]: https://github.com/kergoth/beets-stylize/actions?workflow=Tests
 [codecov]: https://app.codecov.io/gh/kergoth/beets-stylize
@@ -131,5 +130,6 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 [album listing]: ./docs/images/album_listing.png
 [nocolor listing]: ./docs/images/nocolor_listing.png
 [link listing]: ./docs/images/link_listing.png
-[license]: https://github.com/kergoth/beets-stylize/blob/main/LICENSE
-[contributor guide]: https://github.com/kergoth/beets-stylize/blob/main/CONTRIBUTING.md
+[license]: ./LICENSE
+[contributor guide]: ./CONTRIBUTING.md
+[contributor covenant]: ./CODE_OF_CONDUCT.md
