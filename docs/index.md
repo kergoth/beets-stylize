@@ -9,6 +9,7 @@ end-before: <!-- github-only -->
 [license]: license
 [contributor guide]: contributing
 [command-line reference]: usage
+[contributor covenant]: codeofconduct
 [album listing]: images/album_listing.png
 [track listing]: images/track_listing.png
 [nocolor listing]: images/nocolor_listing.png
