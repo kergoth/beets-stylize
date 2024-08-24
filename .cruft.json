@@ -1,7 +1,7 @@
 {
-  "template": "https://github.com/bruno-fs/cookiecutter-hypermodern-python",
+  "template": "https://github.com/kergoth/cookiecutter-hypermodern-python",
   "commit": "6e269e4d703f1e10f38c65a323b48cbe2980e9d3",
-  "checkout": null,
+  "checkout": "beets-plugin",
   "context": {
     "cookiecutter": {
       "project_name": "beets-stylize",
@@ -14,7 +14,7 @@
       "copyright_year": "2024",
       "license": "MIT",
       "development_status": "Development Status :: 4 - Beta",
-      "_template": "https://github.com/bruno-fs/cookiecutter-hypermodern-python"
+      "_template": "https://github.com/kergoth/cookiecutter-hypermodern-python"
     }
   },
   "directory": null
