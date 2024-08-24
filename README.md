@@ -6,6 +6,8 @@
 [![License](https://img.shields.io/pypi/l/beets-stylize)][license]
 
 [![Read the documentation at https://beets-stylize.readthedocs.io/](https://img.shields.io/readthedocs/beets-stylize/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![The Ethical Source Principles](https://img.shields.io/badge/ethical-source-%23bb8c3c?labelColor=393162)][ethical source]
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)][contributor covenant]
 [![Tests](https://github.com/kergoth/beets-stylize/workflows/Tests/badge.svg)][tests]
 [![Codecov](https://codecov.io/gh/kergoth/beets-stylize/branch/main/graph/badge.svg)][codecov]
 
@@ -13,6 +15,8 @@
 [![Ruff codestyle][ruff badge]][ruff project]
 
 [pypi status]: https://pypi.org/project/beets-stylize/
+[ethical source]: https://ethicalsource.dev/principles/
+[contributor covenant]: CODE_OF_CONDUCT.md
 [read the docs]: https://beets-stylize.readthedocs.io/
 [tests]: https://github.com/kergoth/beets-stylize/actions?workflow=Tests
 [codecov]: https://app.codecov.io/gh/kergoth/beets-stylize
