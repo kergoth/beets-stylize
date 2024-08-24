@@ -33,7 +33,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
     def is_enabled(self) -> bool:
         """Check if color is enabled."""
         return (
-            config["ui"]["color"].get(True)
+            bool(config["ui"]["color"].get(True))
             and "NO_COLOR" not in os.environ
             and sys.stdout.isatty()
         )
