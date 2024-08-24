@@ -99,7 +99,7 @@ To learn more, see the [Contributor Guide].
 ## License
 
 Distributed under the terms of the [MIT license][license],
-_Stylize Plugin for Beets_ is free and open source software.
+_Stylize Plugin for Beets_ is free and open source software. This software prioritizes meeting the criteria of the [Ethical Source Principles][ethical source], though it does not currently utilize an [ethical source license][].
 
 ## Issues
 
@@ -122,6 +122,7 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 [ui options]: https://beets.readthedocs.io/en/stable/reference/config.html#id81
 [@cjolowicz]: https://github.com/cjolowicz
 [hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
+[ethical source license]: https://ethicalsource.dev/faq/#what-is-an-ethical-license-for-open-source
 [file an issue]: https://github.com/kergoth/beets-stylize/issues
 
 <!-- github-only -->
