@@ -112,3 +112,14 @@ class StylizePluginTest(BeetsTestCase):
             self.plugin.link("http://example.com"),
             "\x1b]8;;http://example.com\x1b\\http://example.com\x1b]8;;\x1b\\",
         )
+
+    def test_urlencode(self) -> None:
+        """Test urlencode function."""
+        self.assertEqual(
+            self.plugin.urlencode("http://example.com?foo=bar"),
+            "http%3A%2F%2Fexample.com%3Ffoo%3Dbar",
+        )
+
+    def test_urlencode_notext(self) -> None:
+        """Test urlencode function with no text."""
+        self.assertEqual(self.plugin.urlencode(""), "")

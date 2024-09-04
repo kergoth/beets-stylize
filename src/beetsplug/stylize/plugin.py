@@ -5,10 +5,12 @@ The plugin provides the following template plugins for path formats:
 - `stylize` or `color`: Add color to your formatted items and albums.
 - `nocolor`: Show the supplied text only when color is disabled.
 - `link`: Create clickable links in the terminal.
+- `urlencode`: URL-encode the supplied text.
 """
 
 import os
 import sys
+import urllib.parse
 from functools import lru_cache
 from typing import List
 from typing import Optional
@@ -30,6 +32,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         self.template_funcs["color"] = self.stylize
         self.template_funcs["nocolor"] = self.nocolor
         self.template_funcs["link"] = self.link
+        self.template_funcs["urlencode"] = self.urlencode
 
     def is_enabled(self) -> bool:
         """Check if color is enabled."""
@@ -76,6 +79,10 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             return f"{start}{link_text}{end}"
         else:
             return link_text
+
+    def urlencode(self, link_text: str = "") -> str:
+        """Return URL encoded link_text."""
+        return urllib.parse.quote(link_text)
 
     @staticmethod
     @lru_cache
