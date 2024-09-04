@@ -27,7 +27,7 @@
 
 The [stylize](https://github.com/kergoth/beets-stylize) plugin adds style and color to the [list][] command and other commands that need to print out items, by adding three [template functions][] for use with the [format_item][] and [format_album][] configuration options.
 
-- `stylize`: Add color and formatting to your formatted items and albums.
+- `stylize` or `color`: Add color and formatting to your formatted items and albums.
 - `nocolor`: Show the supplied text only when color is disabled. This is useful to add separators between fields when color is unavailable.
 - `link`: Create clickable links in the terminal. This has no effect on an unsupported terminal. This lets you play a track or navigate to an album folder with a click.
 

@@ -2,7 +2,7 @@
 
 The plugin provides the following template plugins for path formats:
 
-- `stylize`: Add color to your formatted items and albums.
+- `stylize` or `color`: Add color to your formatted items and albums.
 - `nocolor`: Show the supplied text only when color is disabled.
 - `link`: Create clickable links in the terminal.
 """
@@ -27,6 +27,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         super().__init__(name=name)
         self.enabled = self.is_enabled()
         self.template_funcs["stylize"] = self.stylize
+        self.template_funcs["color"] = self.stylize
         self.template_funcs["nocolor"] = self.nocolor
         self.template_funcs["link"] = self.link
 
