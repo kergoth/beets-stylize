@@ -58,7 +58,7 @@ source = ["beetsplug.stylize"]
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 96
+fail_under = 100
 exclude_lines = [
     "pragma: no cover",
     "if TYPE_CHECKING:",

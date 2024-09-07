@@ -34,7 +34,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         self.template_funcs["urlencode"] = self.urlencode
 
         if is_enabled is None:
-            self.enabled = self.is_enabled()
+            self.enabled = self.is_enabled()  # pragma: no cover
         else:
             self.enabled = is_enabled
 
@@ -64,7 +64,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         self.template_funcs["color"] = color
         self.template_funcs["nocolor"] = nocolor
 
-    def is_enabled(self) -> bool:
+    def is_enabled(self) -> bool:  # pragma: no cover
         """Check if color is enabled."""
         return (
             bool(config["ui"]["color"].get(True))
