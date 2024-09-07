@@ -26,7 +26,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
     """Beets plugin to add style to your music library."""
 
     def __init__(
-        self, name: str = "stylize", is_enabled: Optional[bool] = False
+        self, name: str = "stylize", is_enabled: Optional[bool] = None
     ) -> None:
         super().__init__(name=name)
 
