@@ -25,14 +25,44 @@ from beets.ui import _colorize
 class StylizePlugin(BeetsPlugin):  # type: ignore
     """Beets plugin to add style to your music library."""
 
-    def __init__(self, name: str = "stylize") -> None:
+    def __init__(
+        self, name: str = "stylize", is_enabled: Optional[bool] = False
+    ) -> None:
         super().__init__(name=name)
-        self.enabled = self.is_enabled()
-        self.template_funcs["stylize"] = self.stylize
-        self.template_funcs["color"] = self.stylize
-        self.template_funcs["nocolor"] = self.nocolor
+
         self.template_funcs["link"] = self.link
         self.template_funcs["urlencode"] = self.urlencode
+
+        if is_enabled is None:
+            self.enabled = self.is_enabled()
+        else:
+            self.enabled = is_enabled
+
+        if not self.enabled:
+
+            def color(
+                color_name: str, text: str, alternative: Optional[str] = None
+            ) -> str:
+                if alternative is None:
+                    return text
+                else:
+                    return alternative
+
+            def nocolor(disabled: str, enabled: str = "") -> str:
+                return disabled
+        else:
+
+            def color(
+                color_name: str, text: str, alternative: Optional[str] = None
+            ) -> str:
+                return self.stylize(color_name, text)
+
+            def nocolor(disabled: str, enabled: str = "") -> str:
+                return enabled
+
+        self.template_funcs["stylize"] = color
+        self.template_funcs["color"] = color
+        self.template_funcs["nocolor"] = nocolor
 
     def is_enabled(self) -> bool:
         """Check if color is enabled."""
@@ -42,31 +72,16 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             and sys.stdout.isatty()
         )
 
-    def stylize(
-        self, color_name: str, text: str, alternative: Optional[str] = None
-    ) -> str:
+    def stylize(self, color_name: str, text: str) -> str:
         """Colorize text with a configured color (ui.colors)."""
         if text:
-            if self.enabled:
-                code = self.color_codes(color_name)
-                if code is None:
-                    return text
-                else:
-                    return _colorize(code, text)  # type: ignore
+            code = self.color_codes(color_name)
+            if code is None:
+                return text
             else:
-                if alternative is None:
-                    return text
-                else:
-                    return alternative
+                return _colorize(code, text)  # type: ignore
         else:
             return ""
-
-    def nocolor(self, disabled_value: str, enabled_value: Optional[str] = None) -> str:
-        """Return value if color is disabled."""
-        if not self.enabled:
-            return disabled_value
-        else:
-            return enabled_value or ""
 
     def link(self, url: str, link_text: Optional[str] = None) -> str:
         """Return a clickable link."""
