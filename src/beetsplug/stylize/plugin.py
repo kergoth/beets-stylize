@@ -108,14 +108,16 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         except (confuse.ConfigTypeError, confuse.NotFoundError, NameError):
             # Normal color definition (type: list of unicode).
             try:
-                color_codes: List[str] = config["ui"]["colors"][color_name].get(list)
+                color_code_list: List[str] = config["ui"]["colors"][color_name].get(
+                    list
+                )
             except (confuse.ConfigTypeError, confuse.NotFoundError, NameError):
                 return None
         else:
-            color_codes = color_code.split()
+            color_code_list = color_code.split()
 
-        for code in color_codes:
+        for code in color_code_list:
             if code not in ANSI_CODES.keys():
                 raise ValueError("no such ANSI code %s", code)
 
-        return color_codes
+        return color_code_list
