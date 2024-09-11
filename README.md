@@ -148,6 +148,17 @@ album_formats:
 
 format_album: "$format_album"
 format_item: "$format_item"
+
+ui:
+  colors:
+    album: ["blue", "bold"]
+    albumartist: ["yellow", "bold"]
+    albumtypes: ["cyan"]
+    artist: ["yellow", "bold"]
+    id: ["faint"]
+    title: ["normal"]
+    track: ["green"]
+    year: ["magenta", "bold"]
 ```
 
 ## Contributing
