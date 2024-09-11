@@ -13,6 +13,7 @@ end-before: <!-- github-only -->
 [track listing]: images/track_listing.png
 [nocolor listing]: images/nocolor_listing.png
 [link listing]: images/link_listing.png
+[personal config listings]: images/my_config_listings.png
 
 ```{toctree}
 ---

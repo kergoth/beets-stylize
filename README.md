@@ -53,6 +53,8 @@ ui:
 
 The `stylize` function accepts a named color as the first argument, the text to be stylized as the second, and an optional third argument for the text to be used if color is disabled.
 
+### Example Usage
+
 Example usage in your beets configuration, based on the default `format_item` and `format_album` configuration options:
 
 ```yaml
@@ -91,6 +93,63 @@ As we see here, in the Visual Studio Code terminal:
 
 ![Link Listing][]
 
+### Example Usage From My Personal Configuration
+
+![Personal Config Listings][]
+
+This example is more elaborate, and includes usage of [alias][], [savedformats][], [inline][] and [albumtypes][]. [alias][] is only used to provide separate commands that use `%link`, as using it seems to have a performance impact, so I don't want it always used. [savedformats][] is only used to split up the default format strings for readability and maintainability, but is not required. [inline][] can be used instead of [savedformats][] to provide the `icon` field.
+
+```yaml
+plugins: stylize alias savedformats inline albumtypes
+
+aliases:
+  lsl:
+    help: List items, linking to their files
+    command: ls -f '%link{file://$path,$icon} $format_item'
+    aliases: list-linked
+
+  lsf:
+    help: List items, with links to play them in foobar2000 (macOS only)
+    command: ls -f '%link{shortcuts://run-shortcut?name=Open in foobar2000&input=text&text=%urlencode{$path},$icon} $format_item'
+    aliases: list-foobar2k
+
+item_fields:
+  icon: '"📄"'
+  disc_and_track: |
+    if not track or (tracktotal and tracktotal == 1):
+      return ''
+    elif disctotal > 1:
+      return u'%02i.%02i' % (disc, track)
+    else:
+      return u'%02i' % track
+
+album_fields:
+  icon: '"📁"'
+
+item_formats:
+  format_item: "%ifdef{id,$format_id }%if{$singleton,,$format_album_title %nocolor{| }}$format_year %nocolor{- }$format_track"
+
+  format_id: "%stylize{id,$id,[$id]}"
+  format_album_title: "%stylize{album,$album%aunique{}}%if{$albumtypes,%stylize{albumtypes,%ifdef{atypes,%if{$atypes, $atypes}}}}"
+  format_year: "%stylize{year,$year}"
+
+  format_track: "%if{$singleton,,%if{$disc_and_track,$format_disc_and_track %nocolor{- }}}$format_artist$format_title"
+  format_disc_and_track: "%stylize{track,$disc_and_track}"
+  format_artist: "%stylize{artist,$artist} %nocolor{- }"
+  format_title: "%stylize{title,$title}"
+
+album_formats:
+  format_album: "%ifdef{id,$format_album_id }%if{$albumartist,$format_albumartist %nocolor{- }}$format_album_title %nocolor{| }$format_year"
+
+  format_album_id: "%stylize{id,$id,[$id]}"
+  format_albumartist: "%stylize{albumartist,$albumartist}"
+  format_album_title: "%stylize{album,$album%aunique{}}%if{$albumtypes,%stylize{albumtypes,%ifdef{atypes,%if{$atypes, $atypes}}}}"
+  format_year: "%stylize{year,$year}"
+
+format_album: "$format_album"
+format_item: "$format_item"
+```
+
 ## Contributing
 
 Contributions are very welcome.
@@ -124,6 +183,10 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 [hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 [ethical source license]: https://ethicalsource.dev/faq/#what-is-an-ethical-license-for-open-source
 [file an issue]: https://github.com/kergoth/beets-stylize/issues
+[alias]: https://github.com/kergoth/beets-alias
+[savedformats]: https://github.com/kergoth/beets-kergoth/blob/master/docs/savedformats.rst
+[inline]: https://beets.readthedocs.io/en/stable/plugins/inline.html
+[albumtypes]: https://beets.readthedocs.io/en/stable/plugins/albumtypes.html
 
 <!-- github-only -->
 
@@ -131,6 +194,7 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 [album listing]: ./docs/images/album_listing.png
 [nocolor listing]: ./docs/images/nocolor_listing.png
 [link listing]: ./docs/images/link_listing.png
+[personal config listings]: ./docs/images/my_config_listings.png
 [license]: ./LICENSE
 [contributor guide]: ./CONTRIBUTING.md
 [contributor covenant]: ./CODE_OF_CONDUCT.md
