@@ -146,6 +146,9 @@ album_formats:
   format_album_title: "%stylize{album,$album%aunique{}}%if{$albumtypes,%stylize{albumtypes,%ifdef{atypes,%if{$atypes, $atypes}}}}"
   format_year: "%stylize{year,$year}"
 
+  # Allow for aliases with `-f '$format_item'` to be used when `-a` is passed
+  format_item: "$format_album"
+
 format_album: "$format_album"
 format_item: "$format_item"
 
