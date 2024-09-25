@@ -1,6 +1,8 @@
 """Tests for the 'stylize' plugin."""
 
+import os
 import unittest
+import unittest.mock
 
 from beets import config  # type: ignore
 from beets.test.helper import TestHelper  # type: ignore
@@ -30,6 +32,7 @@ class StylizePluginTestCase(BeetsTestCase):
 
     def _setup_config(self, **kwargs: str) -> None:
         """Set up configuration."""
+        config["ui"]["color"] = True
         config["ui"]["colors"] = kwargs
         self.plugin.color_codes.cache_clear()
 
@@ -97,6 +100,34 @@ class StylizePluginTest(StylizePluginTestCase):
     def test_urlencode_notext(self) -> None:
         """Test urlencode function with no text."""
         self.assertEqual(self.plugin.urlencode(""), "")
+
+
+@unittest.mock.patch.dict(os.environ, clear=True)
+class StylizePluginTestColorVariable(BeetsTestCase):
+    """Test cases for the stylize beets plugin BEETS_COLOR environment variable."""
+
+    def setUp(self) -> None:
+        """Set up test cases."""
+        super().setUp()
+        config["ui"]["color"] = True
+
+    def test_always(self) -> None:
+        """Test BEETS_COLOR=always."""
+        assert stylize.StylizePlugin.is_enabled(beets_color="always")
+
+    def test_never(self) -> None:
+        """Test BEETS_COLOR=never."""
+        assert not stylize.StylizePlugin.is_enabled(beets_color="never")
+
+    def test_auto(self) -> None:
+        """Test BEETS_COLOR=auto."""
+        with unittest.mock.patch("sys.stdout") as stdout:
+            stdout.isatty.return_value = True
+            assert stylize.StylizePlugin.is_enabled(beets_color="auto")
+
+        with unittest.mock.patch("sys.stdout") as stdout:
+            stdout.isatty.return_value = False
+            assert not stylize.StylizePlugin.is_enabled(beets_color="auto")
 
 
 class StylizePluginTestNoColor(StylizePluginTestCase):

@@ -13,13 +13,19 @@ import sys
 import urllib.parse
 from functools import lru_cache
 from typing import List
+from typing import Literal
 from typing import Optional
+from typing import cast
+from typing import get_args
 
 import confuse  # type: ignore
 from beets import config  # type: ignore
 from beets.plugins import BeetsPlugin  # type: ignore
 from beets.ui import ANSI_CODES  # type: ignore
 from beets.ui import _colorize
+
+
+BeetsColor = Literal["auto", "always", "never"]
 
 
 class StylizePlugin(BeetsPlugin):  # type: ignore
@@ -64,12 +70,27 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         self.template_funcs["color"] = color
         self.template_funcs["nocolor"] = nocolor
 
-    def is_enabled(self) -> bool:  # pragma: no cover
+    @staticmethod
+    def is_enabled(
+        beets_color: Optional[BeetsColor] = None,
+    ) -> bool:  # pragma: no cover
         """Check if color is enabled."""
+        if beets_color is None:
+            beets_color_str = os.environ.get("BEETS_COLOR", "auto")
+            if beets_color_str not in get_args(BeetsColor):
+                raise ValueError(
+                    f"BEETS_COLOR must be {', '.join(get_args(BeetsColor))}"
+                )
+            beets_color = cast(BeetsColor, beets_color_str)
+
         return (
             bool(config["ui"]["color"].get(True))
             and "NO_COLOR" not in os.environ
-            and sys.stdout.isatty()
+            and beets_color != "never"
+            and (
+                beets_color == "always"
+                or (beets_color == "auto" and sys.stdout.isatty())
+            )
         )
 
     def stylize(self, color_name: str, text: str) -> str:
