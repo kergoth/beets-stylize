@@ -601,6 +601,17 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.3)", "diff-cover (>=7.7)", "pyt
 typing = ["typing-extensions (>=4.7.1)"]
 
 [[package]]
+name = "filetype"
+version = "1.2.0"
+description = "Infer file type and MIME type of any file/buffer. No external dependencies."
+optional = false
+python-versions = "*"
+files = [
+    {file = "filetype-1.2.0-py2.py3-none-any.whl", hash = "sha256:7ce71b6880181241cf7ac8697a2f1eb6a8bd9b429f7ad6d27b8db9ba5f1c2d25"},
+    {file = "filetype-1.2.0.tar.gz", hash = "sha256:66b56cd6474bf41d8c54660347d37afcc3f7d1970648de365c102ef77548aadb"},
+]
+
+[[package]]
 name = "furo"
 version = "2024.8.6"
 description = "A clean customisable Sphinx documentation theme."
@@ -727,6 +738,14 @@ files = [
     {file = "jellyfish-1.1.0-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:2fcaefebe9d67f282d89d3a66646b77184a42b3eca2771636789b2dc1288c003"},
     {file = "jellyfish-1.1.0-cp312-none-win32.whl", hash = "sha256:e512c99941a257541ffd9f75c7a5c4689de0206841b72f1eb015599d17fed2c3"},
     {file = "jellyfish-1.1.0-cp312-none-win_amd64.whl", hash = "sha256:2b928bad2887c662783a4d9b5828ed1fa0e943f680589f7fc002c456fc02e184"},
+    {file = "jellyfish-1.1.0-cp313-cp313-macosx_10_12_x86_64.whl", hash = "sha256:5d510b04e2a39f27aef391ca18bf527ec5d9a2438a63731b87faada83996cb92"},
+    {file = "jellyfish-1.1.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:57d005cc5daa4d0a8d88341d86b1dce24e3f1d7721da75326c0b7af598a4f58c"},
+    {file = "jellyfish-1.1.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:889edab0fb2a29d29c148c9327752df525c9bdaef03eef01d1bd9c1f90b47ebf"},
+    {file = "jellyfish-1.1.0-cp313-cp313-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:937b657aacba8fe8482ebc5fea5ba1aee987ecb9da0f037bfb8a1a9045d05746"},
+    {file = "jellyfish-1.1.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3cb5088436ce1fdabcb46aed3a3cc215f0432313596f4e5abe5300ed833b697c"},
+    {file = "jellyfish-1.1.0-cp313-cp313-musllinux_1_1_aarch64.whl", hash = "sha256:af74156301a0ff05a22e8cf46250678e23fa447279ba6dffbf9feff01128f51d"},
+    {file = "jellyfish-1.1.0-cp313-cp313-musllinux_1_1_i686.whl", hash = "sha256:3f978bc430bbed4df3c10b2a66be7b5bddd09e6c2856c7a17fa2298fb193d4d4"},
+    {file = "jellyfish-1.1.0-cp313-cp313-musllinux_1_1_x86_64.whl", hash = "sha256:b460f0bbde533f6f8624c1d7439e7f511b227ca18a58781e7f38f21961bd3f09"},
     {file = "jellyfish-1.1.0-cp38-cp38-macosx_10_12_x86_64.whl", hash = "sha256:7cd4b706cb6c4739846d78a398c67996cb451b09a732a625793cfe8d4f37af1b"},
     {file = "jellyfish-1.1.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:61cded25b47fe6b4c2ea9478c0a5a7531845218525a1b2627c67907ee9fe9b15"},
     {file = "jellyfish-1.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:04bf33577059afba33227977e4a2c08ccb954eb77c849fde564af3e31ee509d9"},
@@ -947,18 +966,18 @@ files = [
 
 [[package]]
 name = "mediafile"
-version = "0.12.0"
+version = "0.13.0"
 description = "Handles low-level interfacing for files' tags. Wraps Mutagen to"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mediafile-0.12.0-py3-none-any.whl", hash = "sha256:6b6fdb61bb151cd9d6a8a8821ce28adee604ede8a9a992f0d9dd3e835ef4899b"},
-    {file = "mediafile-0.12.0.tar.gz", hash = "sha256:d75d805a06ed56150dbcea76505e700f9809abd9e98f98117ae46f5df2ccf1d7"},
+    {file = "mediafile-0.13.0-py3-none-any.whl", hash = "sha256:cd8d183d0e0671b5203a86e92cf4e3338ecc892a1ec9dcd7ec0ed87779e514cb"},
+    {file = "mediafile-0.13.0.tar.gz", hash = "sha256:de71063e1bffe9733d6ccad526ea7dac8a9ce760105827f81ab0cb034c729a6d"},
 ]
 
 [package.dependencies]
+filetype = ">=1.2.0"
 mutagen = ">=1.46"
-six = ">=1.9"
 
 [package.extras]
 test = ["tox"]
@@ -1686,17 +1705,6 @@ python-versions = ">=3.7"
 files = [
     {file = "shellingham-1.5.4-py2.py3-none-any.whl", hash = "sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686"},
     {file = "shellingham-1.5.4.tar.gz", hash = "sha256:8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de"},
-]
-
-[[package]]
-name = "six"
-version = "1.16.0"
-description = "Python 2 and 3 compatibility utilities"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-files = [
-    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
-    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 
 [[package]]
