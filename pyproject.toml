@@ -112,6 +112,7 @@ ignore = [
     "Q002",
     "Q003",
     "W191",
+    "UP035", # Ignore, as I support many python versions
 ]
 
 [tool.ruff.lint.per-file-ignores]
