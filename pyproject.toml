@@ -79,6 +79,7 @@ show_error_context = true
 exclude = ["^noxfile\\.py$"]
 
 [tool.ruff]
+target-version = "py38"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
