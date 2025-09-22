@@ -22,7 +22,7 @@ import confuse  # type: ignore
 from beets import config  # type: ignore
 from beets.plugins import BeetsPlugin  # type: ignore
 from beets.ui import CODE_BY_COLOR  # type: ignore
-from beets.ui import _colorize
+from beets.ui import colorize
 
 
 BeetsColor = Literal["auto", "always", "never"]
@@ -100,7 +100,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             if code is None:
                 return text
             else:
-                return _colorize(code, text)  # type: ignore
+                return colorize(code, text)  # type: ignore
         else:
             return ""
 
