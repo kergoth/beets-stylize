@@ -21,7 +21,7 @@ from typing import get_args
 import confuse  # type: ignore
 from beets import config  # type: ignore
 from beets.plugins import BeetsPlugin  # type: ignore
-from beets.ui import ANSI_CODES  # type: ignore
+from beets.ui import CODE_BY_COLOR  # type: ignore
 from beets.ui import _colorize
 
 
@@ -138,7 +138,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             color_code_list = color_code.split()
 
         for code in color_code_list:
-            if code not in ANSI_CODES.keys():
+            if code not in CODE_BY_COLOR.keys():
                 raise ValueError("no such ANSI code %s", code)
 
         return color_code_list
