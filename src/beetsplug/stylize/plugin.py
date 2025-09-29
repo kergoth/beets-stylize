@@ -12,7 +12,7 @@ import os
 import sys
 import urllib.parse
 from functools import lru_cache
-from typing import List
+from typing import List, Tuple
 from typing import Literal
 from typing import Optional
 from typing import cast
@@ -122,7 +122,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
 
     @staticmethod
     @lru_cache
-    def color_codes(color_name: str) -> Optional[List[str]]:
+    def color_codes(color_name: str) -> Optional[Tuple[str, ...]]:
         """Get configured color codes for a color name."""
         try:
             color_code: str = config["ui"]["colors"][color_name].get(str)
@@ -141,4 +141,4 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             if code not in CODE_BY_COLOR.keys():
                 raise ValueError("no such ANSI code %s", code)
 
-        return color_code_list
+        return tuple(color_code_list)
