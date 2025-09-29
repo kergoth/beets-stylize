@@ -96,11 +96,13 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
     def stylize(self, color_name: str, text: str) -> str:
         """Colorize text with a configured color (ui.colors)."""
         if text:
-            code = self.color_codes(color_name)
-            if code is None:
+            color_names = self.color_codes(color_name)
+            if color_names is None:
                 return text
             else:
-                return colorize(code, text)  # type: ignore
+                # Convert color names to ANSI codes
+                codes = tuple(CODE_BY_COLOR[name] for name in color_names)
+                return colorize(codes, text)  # type: ignore
         else:
             return ""
 
