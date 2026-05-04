@@ -20,8 +20,8 @@ from typing import get_args
 import confuse
 from beets import config
 from beets.plugins import BeetsPlugin
-from beets.ui import colorize
 from beets.util.color import CODE_BY_COLOR
+from beets.util.color import colorize
 
 
 BeetsColor = Literal["auto", "always", "never"]
