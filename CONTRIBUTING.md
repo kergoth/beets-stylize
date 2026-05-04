@@ -3,18 +3,21 @@
 Thank you for your interest in improving this project.
 This project is open-source under the [MIT license] and
 welcomes contributions in the form of bug reports, feature requests, and pull requests.
+It also aligns with the [Ethical Source Principles].
 
 Here is a list of important resources for contributors:
 
 - [Source Code]
 - [Documentation]
 - [Issue Tracker]
+- [Ethical Source Principles]
 - [Code of Conduct]
 
 [mit license]: https://spdx.org/licenses/MIT
 [source code]: https://github.com/kergoth/beets-stylize
 [documentation]: https://beets-stylize.readthedocs.io/
 [issue tracker]: https://github.com/kergoth/beets-stylize/issues
+[ethical source principles]: https://ethicalsource.dev/principles/
 
 ## How to report a bug
 
@@ -37,49 +40,47 @@ Request features on the [Issue Tracker].
 
 ## How to set up your development environment
 
-You need Python 3.8+ and the following tools:
+You need Python 3.10+ and the following tools:
 
-- [Poetry]
+- [uv]
 - [Nox]
-- [nox-poetry]
 
 Install the package with development requirements:
 
 ```console
-$ poetry install
+$ uv sync --dev
 ```
 
 You can now run an interactive Python session,
-or the command-line interface:
+or the beets command-line interface:
 
 ```console
-$ poetry run python
-$ poetry run beets-stylize
+$ uv run python
+$ uv run beet
 ```
 
-[poetry]: https://python-poetry.org/
+[uv]: https://docs.astral.sh/uv/
 [nox]: https://nox.thea.codes/
-[nox-poetry]: https://nox-poetry.readthedocs.io/
 
 ## How to test the project
 
 Run the full test suite:
 
 ```console
-$ nox
+$ uv run nox
 ```
 
 List the available Nox sessions:
 
 ```console
-$ nox --list-sessions
+$ uv run nox --list-sessions
 ```
 
 You can also run a specific Nox session.
-For example, invoke the unit test suite like this:
+For example, invoke one interpreter-specific test session like this:
 
 ```console
-$ nox --session=tests
+$ uv run nox --session=tests-3.12
 ```
 
 Unit tests are located in the _tests_ directory,
@@ -102,7 +103,7 @@ Feel free to submit early, though—we can always iterate on this.
 To run linting and code formatting checks before committing your change, you can install pre-commit as a Git hook by running the following command:
 
 ```console
-$ nox --session=pre-commit -- install
+$ uv run nox --session=pre-commit -- install
 ```
 
 It is recommended to open an issue before starting work on anything.
