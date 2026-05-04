@@ -20,9 +20,8 @@ from typing import get_args
 import confuse
 from beets import config
 from beets.plugins import BeetsPlugin
+from beets.ui import colorize
 from beets.util.color import CODE_BY_COLOR
-from beets.util.color import COLOR_ESCAPE
-from beets.util.color import RESET_COLOR
 
 
 BeetsColor = Literal["auto", "always", "never"]
@@ -96,12 +95,12 @@ class StylizePlugin(BeetsPlugin):
     def stylize(self, color_name: str, text: str) -> str:
         """Colorize text with a configured color (ui.colors)."""
         if text:
-            code = self.color_codes(color_name)
-            if code is None:
+            color_names = self.color_codes(color_name)
+            if color_names is None:
                 return text
             else:
-                code_str = ";".join(str(CODE_BY_COLOR[c]) for c in code)
-                return f"{COLOR_ESCAPE}[{code_str}m{text}{RESET_COLOR}"
+                codes = tuple(CODE_BY_COLOR[name] for name in color_names)
+                return colorize(codes, text)  # type: ignore
         else:
             return ""
 
@@ -123,7 +122,7 @@ class StylizePlugin(BeetsPlugin):
 
     @staticmethod
     @lru_cache
-    def color_codes(color_name: str) -> list[str] | None:
+    def color_codes(color_name: str) -> tuple[str, ...] | None:
         """Get configured color codes for a color name."""
         try:
             color_code: str = config["ui"]["colors"][color_name].get(str)
@@ -142,4 +141,4 @@ class StylizePlugin(BeetsPlugin):
             if code not in CODE_BY_COLOR.keys():
                 raise ValueError(f"no such ANSI code {code}")
 
-        return color_code_list
+        return tuple(color_code_list)
