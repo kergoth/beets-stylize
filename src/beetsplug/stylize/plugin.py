@@ -21,7 +21,8 @@ import confuse
 from beets import config
 from beets.plugins import BeetsPlugin
 from beets.util.color import CODE_BY_COLOR
-from beets.util.color import colorize
+from beets.util.color import COLOR_ESCAPE
+from beets.util.color import RESET_COLOR
 
 
 BeetsColor = Literal["auto", "always", "never"]
@@ -100,7 +101,8 @@ class StylizePlugin(BeetsPlugin):
                 return text
             else:
                 codes = tuple(CODE_BY_COLOR[name] for name in color_names)
-                return colorize(codes, text)  # type: ignore
+                code_str = ";".join(str(code) for code in codes)
+                return f"{COLOR_ESCAPE}[{code_str}m{text}{RESET_COLOR}"
         else:
             return ""
 
