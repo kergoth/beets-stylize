@@ -11,29 +11,27 @@ The plugin provides the following template plugins for path formats:
 import os
 import sys
 import urllib.parse
+from collections.abc import Callable
 from functools import lru_cache
-from typing import List
 from typing import Literal
-from typing import Optional
 from typing import cast
 from typing import get_args
 
-import confuse  # type: ignore
-from beets import config  # type: ignore
-from beets.plugins import BeetsPlugin  # type: ignore
-from beets.ui import ANSI_CODES  # type: ignore
-from beets.ui import _colorize
+import confuse
+from beets import config
+from beets.plugins import BeetsPlugin
+from beets.util.color import CODE_BY_COLOR
+from beets.util.color import COLOR_ESCAPE
+from beets.util.color import RESET_COLOR
 
 
 BeetsColor = Literal["auto", "always", "never"]
 
 
-class StylizePlugin(BeetsPlugin):  # type: ignore
+class StylizePlugin(BeetsPlugin):
     """Beets plugin to add style to your music library."""
 
-    def __init__(
-        self, name: str = "stylize", is_enabled: Optional[bool] = None
-    ) -> None:
+    def __init__(self, name: str = "stylize", is_enabled: bool | None = None) -> None:
         super().__init__(name=name)
 
         self.template_funcs["link"] = self.link
@@ -44,10 +42,12 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         else:
             self.enabled = is_enabled
 
+        color: Callable[[str, str, str | None], str]
+        nocolor: Callable[[str, str], str]
         if not self.enabled:
 
             def color(
-                color_name: str, text: str, alternative: Optional[str] = None
+                color_name: str, text: str, alternative: str | None = None
             ) -> str:
                 if alternative is None:
                     return text
@@ -59,20 +59,20 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
         else:
 
             def color(
-                color_name: str, text: str, alternative: Optional[str] = None
+                color_name: str, text: str, alternative: str | None = None
             ) -> str:
                 return self.stylize(color_name, text)
 
             def nocolor(disabled: str, enabled: str = "") -> str:
                 return enabled
 
-        self.template_funcs["stylize"] = color
-        self.template_funcs["color"] = color
+        self.template_funcs["stylize"] = color  # type: ignore[assignment]
+        self.template_funcs["color"] = color  # type: ignore[assignment]
         self.template_funcs["nocolor"] = nocolor
 
     @staticmethod
     def is_enabled(
-        beets_color: Optional[BeetsColor] = None,
+        beets_color: BeetsColor | None = None,
     ) -> bool:  # pragma: no cover
         """Check if color is enabled."""
         if beets_color is None:
@@ -84,7 +84,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             beets_color = cast(BeetsColor, beets_color_str)
 
         return (
-            bool(config["ui"]["color"].get(True))
+            bool(config["ui"]["color"].get(bool))
             and "NO_COLOR" not in os.environ
             and beets_color != "never"
             and (
@@ -100,11 +100,12 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             if code is None:
                 return text
             else:
-                return _colorize(code, text)  # type: ignore
+                code_str = ";".join(str(CODE_BY_COLOR[c]) for c in code)
+                return f"{COLOR_ESCAPE}[{code_str}m{text}{RESET_COLOR}"
         else:
             return ""
 
-    def link(self, url: str, link_text: Optional[str] = None) -> str:
+    def link(self, url: str, link_text: str | None = None) -> str:
         """Return a clickable link."""
         if link_text is None:
             link_text = url
@@ -122,14 +123,14 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
 
     @staticmethod
     @lru_cache
-    def color_codes(color_name: str) -> Optional[List[str]]:
+    def color_codes(color_name: str) -> list[str] | None:
         """Get configured color codes for a color name."""
         try:
             color_code: str = config["ui"]["colors"][color_name].get(str)
         except (confuse.ConfigTypeError, confuse.NotFoundError, NameError):
             # Normal color definition (type: list of unicode).
             try:
-                color_code_list: List[str] = config["ui"]["colors"][color_name].get(
+                color_code_list: list[str] = config["ui"]["colors"][color_name].get(
                     list
                 )
             except (confuse.ConfigTypeError, confuse.NotFoundError, NameError):
@@ -138,7 +139,7 @@ class StylizePlugin(BeetsPlugin):  # type: ignore
             color_code_list = color_code.split()
 
         for code in color_code_list:
-            if code not in ANSI_CODES.keys():
-                raise ValueError("no such ANSI code %s", code)
+            if code not in CODE_BY_COLOR.keys():
+                raise ValueError(f"no such ANSI code {code}")
 
         return color_code_list

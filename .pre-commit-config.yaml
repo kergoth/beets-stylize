@@ -1,57 +1,29 @@
 repos:
-  - repo: local
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
-        name: Check for added large files
-        entry: check-added-large-files
-        language: system
       - id: check-toml
-        name: Check Toml
-        entry: check-toml
-        language: system
-        types: [toml]
       - id: check-yaml
-        name: Check Yaml
-        entry: check-yaml
-        language: system
-        types: [yaml]
       - id: end-of-file-fixer
-        name: Fix End of Files
-        entry: end-of-file-fixer
-        language: system
-        types: [text]
         stages: [commit, push, manual]
       - id: trailing-whitespace
-        name: Trim Trailing Whitespace
-        entry: trailing-whitespace-fixer
-        language: system
-        types: [text]
         stages: [commit, push, manual]
+  - repo: local
+    hooks:
       - id: pydoclint
         name: pydoclint
         entry: pydoclint
-        language: system
+        language: python
+        additional_dependencies: ["pydoclint>=0.4.1,<0.5"]
         types: [python]
-      - id: ruff
-        name: ruff
-        entry: ruff check
-        args: [--fix]
-        language: python
-        types_or: [python, pyi]
-      - id: ruff-format
-        name: ruff-format
-        entry: ruff format
-        language: python
-        types_or: [python, pyi]
-  - repo: https://github.com/python-poetry/poetry
-    rev: 1.8.3
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.4
     hooks:
-      - id: poetry-check
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.6.0
     hooks:
       - id: prettier
-  - repo: https://github.com/repo-helper/pyproject-parser
-    rev: v0.11.1
-    hooks:
-      - id: check-pyproject

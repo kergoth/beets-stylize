@@ -3,23 +3,28 @@
 import os
 import unittest
 import unittest.mock
+from collections.abc import Callable
+from typing import Any
+from typing import cast
 
-from beets import config  # type: ignore
-from beets.test.helper import TestHelper  # type: ignore
+from beets import config
+from beets.test.helper import TestHelper
 
 from beetsplug import stylize
 
 
-class BeetsTestCase(unittest.TestCase, TestHelper):  # type: ignore
+class BeetsTestCase(unittest.TestCase, TestHelper):
     """TestHelper based TestCase for beets."""
+
+    plugin: Any
 
     def setUp(self) -> None:
         """Set up test case."""
-        self.setup_beets()
+        self.setup_beets()  # type: ignore[no-untyped-call]
 
     def tearDown(self) -> None:
         """Tear down test case."""
-        self.teardown_beets()
+        self.teardown_beets()  # type: ignore[no-untyped-call]
 
 
 class StylizePluginTestCase(BeetsTestCase):
@@ -36,6 +41,14 @@ class StylizePluginTestCase(BeetsTestCase):
         config["ui"]["colors"] = kwargs
         self.plugin.color_codes.cache_clear()
 
+    def stylize_func(self) -> Callable[..., str]:
+        """Get the stylize template function with the expected signature."""
+        return cast(Callable[..., str], self.plugin.template_funcs["stylize"])
+
+    def nocolor_func(self) -> Callable[..., str]:
+        """Get the nocolor template function with the expected signature."""
+        return cast(Callable[..., str], self.plugin.template_funcs["nocolor"])
+
 
 class StylizePluginTest(StylizePluginTestCase):
     """Test cases for the stylize beets plugin."""
@@ -43,35 +56,35 @@ class StylizePluginTest(StylizePluginTestCase):
     def test_color_notext(self) -> None:
         """Test stylize function with no text passed."""
         self._setup_config(color1="red")
-        self.assertEqual(self.plugin.template_funcs["stylize"]("color1", ""), "")
+        self.assertEqual(self.stylize_func()("color1", ""), "")
 
     def test_color(self) -> None:
         """Test stylize function with color."""
         self._setup_config(color1="red", color2="green")
         self.assertEqual(
-            self.plugin.template_funcs["stylize"]("color1", "foo"),
+            self.stylize_func()("color1", "foo"),
             "\x1b[31mfoo\x1b[39;49;00m",
         )
         self.assertEqual(
-            self.plugin.template_funcs["stylize"]("color2", "bar"),
+            self.stylize_func()("color2", "bar"),
             "\x1b[32mbar\x1b[39;49;00m",
         )
 
     def test_undefined_color(self) -> None:
         """Test stylize function with undefined color."""
-        self.assertEqual(self.plugin.template_funcs["stylize"]("color1", "foo"), "foo")
+        self.assertEqual(self.stylize_func()("color1", "foo"), "foo")
 
     def test_invalid_color_codes(self) -> None:
         """Test stylize function with invalid color codes."""
         self._setup_config(color1="foo")
         with self.assertRaises(ValueError) as cm:
-            self.plugin.template_funcs["stylize"]("color1", "bar")
-            self.assertEqual(str(cm.exception), "no such ANSI code foo")
+            self.stylize_func()("color1", "bar")
+        self.assertEqual(str(cm.exception), "no such ANSI code foo")
 
     def test_nocolor(self) -> None:
         """Test nocolor function with style enabled."""
-        self.assertEqual(self.plugin.template_funcs["nocolor"]("foo"), "")
-        self.assertEqual(self.plugin.template_funcs["nocolor"]("foo", "bar"), "bar")
+        self.assertEqual(self.nocolor_func()("foo"), "")
+        self.assertEqual(self.nocolor_func()("foo", "bar"), "bar")
 
     def test_link(self) -> None:
         """Test link function."""
@@ -141,19 +154,17 @@ class StylizePluginTestNoColor(StylizePluginTestCase):
     def test_color_disabled(self) -> None:
         """Test stylize function with style disabled."""
         self._setup_config(color1="red")
-        self.assertEqual(self.plugin.template_funcs["stylize"]("color1", "foo"), "foo")
+        self.assertEqual(self.stylize_func()("color1", "foo"), "foo")
 
     def test_color_alternative(self) -> None:
         """Test stylize function with color and alternative."""
         self._setup_config(color1="red")
-        self.assertEqual(
-            self.plugin.template_funcs["stylize"]("color1", "foo", "bar"), "bar"
-        )
+        self.assertEqual(self.stylize_func()("color1", "foo", "bar"), "bar")
 
     def test_nocolor_disabled(self) -> None:
         """Test nocolor function with style disabled."""
-        self.assertEqual(self.plugin.template_funcs["nocolor"]("foo"), "foo")
-        self.assertEqual(self.plugin.template_funcs["nocolor"]("foo", "bar"), "foo")
+        self.assertEqual(self.nocolor_func()("foo"), "foo")
+        self.assertEqual(self.nocolor_func()("foo", "bar"), "foo")
 
     def test_link_disabled(self) -> None:
         """Test link function with style disabled."""
